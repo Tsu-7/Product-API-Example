@@ -1,4 +1,3 @@
-const con = require('./db');
 const sql = require('./db');
 
 var Model =(item)=>{
@@ -49,8 +48,8 @@ Model.getById = getById =(id, result)=>{
 }
 
 Model.patchById = patchById =(id, payload, result)=>{
-    sql.query('update products set name=?, color=?, price=? where id=? ',
-    [payload.name, payload.color, payload.price, id],
+    sql.query('update products set ? where id = ?',
+    [payload, id],
     (err, res)=>{
         console.log("model");
         if(err) {
@@ -63,6 +62,7 @@ Model.patchById = patchById =(id, payload, result)=>{
         }
     });
 }
+
 
 Model.deleteById = deleteById =(id, result)=>{
     sql.query('delete from products where id = ?',id, (err, res)=>{
